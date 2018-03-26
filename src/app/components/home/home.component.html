@@ -1,0 +1,61 @@
+<h1>Tour of GraphQL Heroes</h1>
+<h2>
+    Top Heroes
+    <button class="btn btn-icon btn-primary" (click)="refreshTopHeroes()">
+        <clr-icon shape="refresh"></clr-icon>
+    </button>
+</h2>
+<div class="row">
+    <div class="col-lg-2 col-md-5 col-sm-9 col-xs-9" *ngFor="let hero of heroes$ | async">
+        <div class="card" routerLink="/detail/{{hero.heroId}}">
+            {{ hero.heroName }}
+        </div>
+    </div>
+</div>
+<h2>Hero Search</h2>
+<form [formGroup]="heroSearchForm">
+    <div class="form-group">
+        <label for="search">Name</label>
+        <input type="text"
+               id="search"
+               [formControl]="heroSearchForm.controls['search']" />
+
+    </div>
+    <div class="form-group">
+        <label></label>
+        <div *ngIf="(heroSearchResults$ | async)?.length">
+            <ul>
+                <li *ngFor="let searchResult of heroSearchResults$ | async">
+                    <a routerLink="/detail/{{searchResult.heroId}}">
+                        {{ searchResult.heroName }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+<h2>Power Search</h2>
+<form [formGroup]="powerSearchForm">
+    <div class="form-group">
+        <label for="power_search">Name</label>
+        <input type="text"
+               id="power_search"
+               [formControl]="powerSearchForm.controls['search']" />
+
+    </div>
+    <div class="form-group">
+        <label></label>
+        <div *ngIf="(powerSearchResults$ | async)?.length; else noPowersFound">
+            <ul>
+                <li *ngFor="let searchResult of powerSearchResults$ | async">
+                    <a routerLink="/detail/{{searchResult.heroByHero.heroId}}">
+                        {{ searchResult.heroByHero.heroName }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <ng-template #noPowersFound>
+            <span *ngIf="powerSearchForm.controls['search'].dirty && powerSearchForm.controls['search'].value && this.powerSearchComplete">No Heroes Found</span>
+        </ng-template>
+    </div>
+</form>

@@ -107,11 +107,6 @@ For documentation on the Clarity Design System, including a list of components a
 └── yarn.lock
 ```
 
-
-## Contributing
-
-The Clarity project team welcomes contributions from the community. For more detailed information, see [CONTRIBUTING.md](CONTRIBUTING.md).
-
 ## License
 
 The clarity-seed project is licensed under the MIT license.

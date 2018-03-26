@@ -1,0 +1,67 @@
+<div *ngIf="hero$ | async as hero">
+    <h1>Hero Details</h1>
+    <form [formGroup]="heroDetailForm">
+        <div class="form-group">
+            <label class="required" for="hero_name">Name</label>
+            <label for="hero_name"
+                   aria-haspopup="true"
+                   role="tooltip"
+                   [ngClass]="{invalid: heroDetailForm.controls['name'].invalid}"
+                   class="tooltip tooltip-validation tooltip-sm">
+                <input type="text"
+                       id="hero_name"
+                       [formControl]="heroDetailForm.controls['name']" />
+                <span class="tooltip-content">This field cannot be empty!</span>
+            </label>
+        </div>
+        <button type="submit"
+                (click)="updateHero()"
+                [disabled]="heroDetailForm.invalid || updateLoading"
+                class="btn btn-secondary">
+            Save
+            <span class="spinner spinner-inline" *ngIf="updateLoading"></span>
+            <clr-icon shape="check-circle" class="is-success" *ngIf="updateLoaded"></clr-icon>
+        </button>
+    </form>
+    <h2>
+        Hero Powers
+        <button class="btn btn-icon btn-primary" (click)="addPowerModal = true">
+            <clr-icon shape="plus-circle"></clr-icon>
+        </button>
+    </h2>
+    <div *ngIf="!hero.heroPowersByHero.nodes.length">
+        <p>No powers assigned to this hero.</p>
+    </div>
+    <br/>
+    <div *ngIf="hero.heroPowersByHero.nodes.length">
+        <ul class="list">
+            <li *ngFor="let power of hero.heroPowersByHero.nodes">
+                {{ power.powerByPower.powerName }}
+                <button type="button"
+                        (click)="removePower(power.heroPowerId)"
+                        class="btn btn-sm btn-icon btn-danger">
+                    <clr-icon shape="times"></clr-icon>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<clr-modal [(clrModalOpen)]="addPowerModal">
+    <h3 class="modal-title">Enter a new power</h3>
+    <div class="modal-body">
+        <form [formGroup]="addPowerForm">
+            <label for="power_name" class="required">Power Name</label>
+            <input type="text"
+                   id="power_name"
+                   [formControl]="addPowerForm.controls['name']" />
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="addPowerModal = false">Cancel</button>
+        <button type="button"
+                class="btn btn-primary"
+                [disabled]="addPowerForm.invalid"
+                (click)="addPower()">Ok</button>
+    </div>
+</clr-modal>
+
