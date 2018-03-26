@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import gql from 'graphql-tag';
 import { HeroFragments } from '../fragments';
+import gql from 'graphql-tag';
 
 @Injectable()
 export class HeroQueries {

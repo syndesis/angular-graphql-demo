@@ -28,14 +28,16 @@ GRANT USAGE ON schema demo TO demo_anonymous, demo_user, demo_admin;
 
 --------------------------------------------------------------------------------
 CREATE TABLE demo.hero (
-    hero_id     serial  PRIMARY KEY,
-    hero_name   text
+    hero_id         serial  PRIMARY KEY,
+    hero_name       text,
+    secret_identity text
 );
 COMMENT ON TABLE demo.hero IS 'Heroes';
 COMMENT ON COLUMN demo.hero.hero_name IS 'Name';
+COMMENT ON COLUMN demo.hero.secret_identity IS '@deprecated Secret identity of hero should not be revealed';
 
 
-INSERT INTO demo.hero (hero_name) VALUES ('Mr. Nice');
+INSERT INTO demo.hero (hero_name, secret_identity) VALUES ('Mr. Nice', 'Clark Kent');
 INSERT INTO demo.hero (hero_name) VALUES ('Narco');
 INSERT INTO demo.hero (hero_name) VALUES ('Bombasto');
 INSERT INTO demo.hero (hero_name) VALUES ('Celeritas');

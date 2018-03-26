@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ProfileFragments } from './profile.fragments';
 import { HeroPowerFragments } from './hero-power.fragments';
 import gql from 'graphql-tag';
 
@@ -16,9 +15,6 @@ export class HeroFragments {
     heroWithDetailsFragment = gql`
         fragment heroWithDetailsFragment on Hero {
             ...heroFragment
-            profileByHero {
-                ...profileFragment
-            }
             heroPowersByHero {
                 nodes {
                     ...heroPowerFragment
@@ -26,7 +22,6 @@ export class HeroFragments {
             }
         }
         ${this.heroFragment}
-        ${this.profileFragments.profileFragment}
         ${this.heroPowerFragments.heroPowerFragment}
     `;
 
@@ -41,8 +36,5 @@ export class HeroFragments {
         ${this.heroFragment}
     `;
 
-    constructor(
-        private profileFragments: ProfileFragments,
-        private heroPowerFragments: HeroPowerFragments
-    ) {}
+    constructor(private heroPowerFragments: HeroPowerFragments) {}
 }
