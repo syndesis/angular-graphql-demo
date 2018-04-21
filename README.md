@@ -40,6 +40,8 @@ yarn start-dev
 
 ## Documentation
 
+For documentation on the Apollo Angular client, [see here](https://www.apollographql.com/docs/angular/)
+
 For documentation on the Clarity Design System, including a list of components and example usage, see [their website](https://vmware.github.io/clarity).
 
 #### Directory structure
